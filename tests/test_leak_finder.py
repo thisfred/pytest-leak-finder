@@ -79,7 +79,7 @@ def test_3rd_run_set_target(testdir, module_with_a_leaking_test):
     assert result.ret == 1
 
 
-def test_backtrack(testdir, module_with_a_leaking_test):
+def test_steps(testdir, module_with_a_leaking_test):
     testdir.runpytest("--leak-finder")
     testdir.runpytest("--leak-finder")
     testdir.runpytest("--leak-finder")
@@ -89,7 +89,7 @@ def test_backtrack(testdir, module_with_a_leaking_test):
         [
             "The group selected still fails. Let's do a new partition.",
             "Next step: ba",
-            "Current target is: test_backtrack.py::test5",
+            "Current target is: test_steps.py::test5",
         ]
     )
     assert result.ret == 1

@@ -5,7 +5,7 @@ import os
 
 from setuptools import setup
 
-version = "0.2.0"
+version = "0.2.1"
 readme = open("README.md", encoding="utf-8").read()
 changes = open("CHANGELOG.md", encoding="utf-8").read()
 
