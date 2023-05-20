@@ -83,16 +83,16 @@ def test_backtrack(testdir, module_with_a_leaking_test):
     testdir.runpytest("--leak-finder")
     testdir.runpytest("--leak-finder")
     testdir.runpytest("--leak-finder")
-    result = testdir.runpytest("--leak-finder", "-v", "--backtrack=2")
+    result = testdir.runpytest("--leak-finder", "-v", "--steps=b")
 
     result.stdout.fnmatch_lines(
         [
-            "Target set to: test_backtrack.py::test5",
-            "Next step: a",
+            "The group selected still fails. Let's do a new partition.",
+            "Next step: ba",
             "Current target is: test_backtrack.py::test5",
         ]
     )
-    assert result.ret == 2
+    assert result.ret == 1
 
 
 @pytest.mark.parametrize(

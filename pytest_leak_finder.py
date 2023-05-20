@@ -24,11 +24,11 @@ def pytest_addoption(parser: Parser) -> None:
         help="Bisect previous passed tests until find one that fail",
     )
     group.addoption(
-        "--backtrack",
+        "--steps",
         action="store",
         default=0,
-        dest="backtrack",
-        help="Backtrack n steps to potentially find more leaks.",
+        dest="steps",
+        help="Explicitly retry a particular sequence of steps to potentially find more leaks.",
     )
 
 
@@ -76,9 +76,9 @@ class LeakFinderPlugin:
         self.report_status = ""
         self.cache: "Cache" = config.cache
         self.previous = self.cache.get(CACHE_NAME, {"steps": "", "target": None})
-        backtrack = config.getoption("backtrack")
-        if backtrack and self.previous["steps"]:
-            self.previous["steps"] = self.previous["steps"][: -int(backtrack)]
+        steps = config.getoption("steps")
+        if steps:
+            self.previous["steps"] = steps
 
         self.target = self.previous.get("target")
 
